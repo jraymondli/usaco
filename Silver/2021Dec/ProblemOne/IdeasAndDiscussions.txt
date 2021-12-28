@@ -1,0 +1,19 @@
+
+
+Obeservations:
+* you can break the number line by other Farmer's cows into segments, and work on each one of them individually first
+* farmer John can claim all patches in a segment with two cows, and all patches in the first and last segments with one cow
+
+Idea
+1. find the max one cow can claim in each segment
+2. sort the numbers from 1
+3. look through 2 
+4. every time cecking a new number, decide if you want to use two bose based on
+   a. there are two more cows available from total cows Farmer John has not used in calculation
+   b. the total tastiness for the segment is bigger than the max one cow can cliam in this segment, plus max
+      one cow can claim in the next segment
+
+ 
+
+
+
