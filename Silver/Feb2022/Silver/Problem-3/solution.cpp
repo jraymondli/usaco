@@ -32,11 +32,8 @@ void solve(int M, int N, int K)
 
     int e_nxt_idx = 0;
 
-    for (int ifs = 0; ifs < M - K; ifs ++) {
+    for (int ifs = 0; ifs <= M - K; ifs ++) {
 	auto ife = ifs + K - 1;
-	// 1. loop through the q items to file 
-        // 2. loop till last item in file window;
- 	//    and there are k item in q 
 	for (int j = 0; j < emq.size(); j++) {
 	    auto q_item = emq.front();
 	    emq.pop_front();
@@ -56,6 +53,7 @@ void solve(int M, int N, int K)
 	for (int j = N - 1; j >= e_nxt_idx; j --) {
 	    if (e[j] >= (ifs + 1) && e[j] <= (ife +1)) {
 	        last_mark = j + 1;
+		// cout << "last mark" << last_mark << endl;
 		break;
 	    } 
         }
@@ -71,6 +69,7 @@ void solve(int M, int N, int K)
 	   }
 	   e_nxt_idx ++;	
 	}
+	// printq(emq);
     }
 
     while (ems.size() > 0 && emq.size() < K) {
