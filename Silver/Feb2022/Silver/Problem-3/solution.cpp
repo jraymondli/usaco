@@ -34,10 +34,13 @@ void solve(int M, int N, int K)
 
     for (int ifs = 0; ifs <= M - K; ifs ++) {
 	auto ife = ifs + K - 1;
-	for (int j = 0; j < emq.size(); j++) {
+	// cout << "queue size:" << emq.size() << endl;
+	auto count = emq.size();
+	for (int j = 0; j < count; j++) {
+	   
 	    auto q_item = emq.front();
 	    emq.pop_front();
-	    if ( q_item < (ifs +1) || q_item > (ife +1) ) 
+	    if ( (q_item < (ifs +1)) || q_item > (ife +1) ) 
 		emq.push_back(q_item);
 	}
 
@@ -59,13 +62,13 @@ void solve(int M, int N, int K)
         }
 
         while (e_nxt_idx < last_mark) {
+	   if (emq.size() > K) {
+                    auto front = emq.front();
+                    ems.push(front);
+                    emq.pop_front();
+           }
 	   if (e[e_nxt_idx] < (ifs +1)  || e[e_nxt_idx] > (ife+1)) {
 		emq.push_back(e[e_nxt_idx]);
-		if (emq.size() > K) {
-		    auto front = emq.front();
-		    ems.push(front);
-		    emq.pop_front(); 
-		}
 	   }
 	   e_nxt_idx ++;	
 	}
@@ -76,7 +79,7 @@ void solve(int M, int N, int K)
 
 	auto top = ems.top();
         ems.pop();	
-	if (top < (M - K)) {
+	if (top > (M - K + 1)) {
 	    cout << "NO" << endl;
 	    return; 
 	}
