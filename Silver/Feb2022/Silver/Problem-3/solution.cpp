@@ -44,12 +44,14 @@ void solve(int M, int N, int K)
 		emq.push_back(q_item);
 	}
 
-        while (ems.size() > 0 && emq.size() < K) {
+	if (e_nxt_idx == N) {
+          while (ems.size() > 0 && emq.size() < K) {
             auto top = ems.top();
             ems.pop();
 	    if (top > (ife +1) || top < (ifs +1)) {
 		emq.push_front(top);
 	    }
+	  }
 	}
 
 	int last_mark = e_nxt_idx;
@@ -74,6 +76,7 @@ void solve(int M, int N, int K)
 	}
 	// printq(emq);
     }
+
 
     while (ems.size() > 0 && emq.size() < K) {
 
