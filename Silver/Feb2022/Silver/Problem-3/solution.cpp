@@ -56,7 +56,7 @@ void solve(int M, int N, int K)
 
 	int last_mark = e_nxt_idx;
 	for (int j = N - 1; j >= e_nxt_idx; j --) {
-	    if (e[j] >= (ifs + 1) && e[j] <= (ife +1)) {
+	    if (e[j] == (ifs + 1) ) {
 	        last_mark = j + 1;
 		// cout << "last mark" << last_mark << endl;
 		break;
@@ -64,15 +64,15 @@ void solve(int M, int N, int K)
         }
 
         while (e_nxt_idx < last_mark) {
-	   if (emq.size() > K) {
+	   if (e[e_nxt_idx] < (ifs +1)  || e[e_nxt_idx] > (ife+1)) {
+		emq.push_back(e[e_nxt_idx]);
+		if (emq.size() > K) { 
                     auto front = emq.front();
                     ems.push(front);
                     emq.pop_front();
-           }
-	   if (e[e_nxt_idx] < (ifs +1)  || e[e_nxt_idx] > (ife+1)) {
-		emq.push_back(e[e_nxt_idx]);
+               }
 	   }
-	   e_nxt_idx ++;	
+	   e_nxt_idx ++;
 	}
 	// printq(emq);
     }
@@ -82,12 +82,13 @@ void solve(int M, int N, int K)
 
 	auto top = ems.top();
         ems.pop();	
-	if (top > (M - K + 1)) {
+	if (top < (M - K + 1) ) {
 	    cout << "NO" << endl;
 	    return; 
 	}
     }
 
+    // cout << "stack size:" << ems.size() << endl;
     if (emq.size() > 0 ) 
         cout << "NO";
     else
