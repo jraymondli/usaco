@@ -2,8 +2,7 @@
 #include <bits/stdc++.h>
 #include <vector>
 #include <tuple>
-#include <list>
-#include <stack>
+#include <set>
 #include <queue>
 #include <deque>
 
@@ -16,7 +15,7 @@ string s1, s2;
 vector<char> a1;
 vector<char> a2;
 map<char, bool> visited;
-map<char, list<char> > rel;
+map<char, set<char> > rel;
 
 bool dfs(char c)
 {  
@@ -49,7 +48,7 @@ void solve() {
 	auto c1 = s1[i];
 	auto c2 = s2[i];
 
-	rel[c1].push_back(c2);
+	rel[c1].insert(c2);
     }
 
     int count = 0;
