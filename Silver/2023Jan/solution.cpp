@@ -15,19 +15,23 @@ string s1, s2;
 vector<char> a1;
 vector<char> a2;
 map<char, bool> visited;
+map<char, bool> loop_visited;
 map<char, set<char> > rel;
 
-bool dfs(char c)
-{  
+bool dfs(char c, char root)
+{ 
+    loop_visited[c] = true; 
+
     auto nxt = rel[c];
     if (nxt.size() == 0) return false;
 
     auto nxtChar = *nxt.begin();
 
     if (nxtChar == c) return false;
-    if (visited[nxtChar]) return true;
-    visited[nxtChar] = true;
-    return dfs(nxtChar);
+    if (nxtChar == root) return true;
+    if (loop_visited[nxtChar]) return false;
+
+    return dfs(nxtChar, root);
 }  
 
 void solve() {
@@ -63,10 +67,17 @@ void solve() {
 	visited[it->first] = false;
     }
 
+    // cout << count << endl;
     // identify loop
     for (auto it = visited.begin(); it != visited.end(); it ++) {
 	if (it->second) continue;
-	if (dfs(it->first)) count ++;
+	loop_visited.clear();
+	if (dfs(it->first, it->first)) {
+	    count ++;
+        }
+	for (auto it2 = loop_visited.begin(); it2 != loop_visited.end(); it2++) {
+	    visited[it2->first] = it2->second;
+	}
     }
  
     cout << count << endl;
