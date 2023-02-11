@@ -17,6 +17,7 @@ vector<char> a2;
 map<char, bool> visited;
 map<char, bool> loop_visited;
 map<char, set<char> > rel;
+map<char, int> loop_idx_map;
 
 bool dfs(char c, char root)
 { 
@@ -34,6 +35,20 @@ bool dfs(char c, char root)
     return dfs(nxtChar, root);
 }  
 
+void set_loop_idx(char c, int loop_idx)
+{
+    loop_idx_map[c] =  loop_idx;
+
+    auto nxt = rel[c];
+    auto nxtChar = *nxt.begin();
+
+    if (loop_idx_map[nxtChar] == loop_idx)
+	return;
+
+    set_loop_idx(nxtChar, loop_idx);
+
+}
+
 void solve() {
     // cout << s1 << ";" << s2 << endl;
     vector<char> a1(s1.begin(), s1.end());
@@ -47,6 +62,7 @@ void solve() {
 
     rel.clear();
     visited.clear();
+    loop_idx_map.clear();
 
     for (int i = 0; i < N; i++) {
 	auto c1 = s1[i];
@@ -69,17 +85,33 @@ void solve() {
 
     // cout << count << endl;
     // identify loop
+    int loop_idx = 0;
     for (auto it = visited.begin(); it != visited.end(); it ++) {
 	if (it->second) continue;
 	loop_visited.clear();
 	if (dfs(it->first, it->first)) {
 	    count ++;
+	    loop_idx ++;
+ 	    set_loop_idx(it->first, loop_idx);
         }
 	for (auto it2 = loop_visited.begin(); it2 != loop_visited.end(); it2++) {
 	    visited[it2->first] = it2->second;
 	}
     }
- 
+
+    set<int> loopsWithTails;
+
+    for (auto it = rel.begin(); it != rel.end(); it ++) {
+	if (loop_idx_map[it->first]) continue;
+
+	auto nxtChar = *(it->second.begin());
+	if (loop_idx_map[nxtChar]) {
+	    loopsWithTails.insert(loop_idx_map[nxtChar]);
+        }
+    }
+    // cout << "size:" << loopsWithTails.size() << endl; 
+    count -= loopsWithTails.size() ;
+
     cout << count << endl;
 }
 
