@@ -35,7 +35,7 @@ bool dfs(char c, char root)
     return dfs(nxtChar, root);
 }  
 
-void set_loop_idx(char c, int loop_idx)
+int set_loop_idx(char c, int loop_idx)
 {
     loop_idx_map[c] =  loop_idx;
 
@@ -43,9 +43,9 @@ void set_loop_idx(char c, int loop_idx)
     auto nxtChar = *nxt.begin();
 
     if (loop_idx_map[nxtChar] == loop_idx)
-	return;
+	return 0;
 
-    set_loop_idx(nxtChar, loop_idx);
+    return 1 + set_loop_idx(nxtChar, loop_idx);
 
 }
 
@@ -65,15 +65,15 @@ void solve() {
     loop_idx_map.clear();
 
     for (int i = 0; i < N; i++) {
-	auto c1 = s1[i];
-	auto c2 = s2[i];
+	auto c1 = a1[i];
+	auto c2 = a2[i];
 
 	rel[c1].insert(c2);
     }
 
     int count = 0;
     for (auto it = rel.begin(); it != rel.end(); it ++) {
-	if (it->second.size() > 1) {
+	if (it->second.size() != 1) {
 	    cout << -1 << endl;
    	    return;
    	}
@@ -82,6 +82,8 @@ void solve() {
 	    count += 1;
 	visited[it->first] = false;
     }
+
+    // cout << endl << "rules:" << rel.size() << endl;
 
     // cout << count << endl;
     // identify loop
@@ -92,7 +94,7 @@ void solve() {
 	if (dfs(it->first, it->first)) {
 	    count ++;
 	    loop_idx ++;
- 	    set_loop_idx(it->first, loop_idx);
+ 	    set_loop_idx(it->first, loop_idx) ;
         }
 	for (auto it2 = loop_visited.begin(); it2 != loop_visited.end(); it2++) {
 	    visited[it2->first] = it2->second;
@@ -109,9 +111,14 @@ void solve() {
 	    loopsWithTails.insert(loop_idx_map[nxtChar]);
         }
     }
+    // cout << "loops:" << loop_idx << endl;
     // cout << "size:" << loopsWithTails.size() << endl; 
+    if (rel.size() == 52 && loop_idx > loopsWithTails.size() )  {
+	cout << -1 << endl;
+	return;
+    }
+ 
     count -= loopsWithTails.size() ;
-
     cout << count << endl;
 }
 
