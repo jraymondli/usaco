@@ -64,13 +64,22 @@ void solve() {
     visited.clear();
     loop_idx_map.clear();
 
+    set<char> targets;
+
     for (int i = 0; i < N; i++) {
 	auto c1 = a1[i];
 	auto c2 = a2[i];
 
 	rel[c1].insert(c2);
+
+        targets.insert(c2);
     }
 
+    if (targets.size() == 52 && s1 != s2) {
+	cout << -1 << endl;
+        return;
+    }
+ 
     int count = 0;
     for (auto it = rel.begin(); it != rel.end(); it ++) {
 	if (it->second.size() != 1) {
@@ -111,13 +120,6 @@ void solve() {
 	    loopsWithTails.insert(loop_idx_map[nxtChar]);
         }
     }
-    // cout << "loops:" << loop_idx << endl;
-    // cout << "size:" << loopsWithTails.size() << endl; 
-    if (rel.size() == 52 && loop_idx > loopsWithTails.size() )  {
-	cout << -1 << endl;
-	return;
-    }
- 
     count -= loopsWithTails.size() ;
     cout << count << endl;
 }
