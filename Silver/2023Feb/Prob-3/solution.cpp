@@ -48,9 +48,9 @@ int main()
 	    int fi = * it; // flight index
 	
             int layover = a[curr];
-	    if (curr == 1) layover == 0;
+	    if (curr == 1) layover = 0;
 
-	    if ( (et[curr] + layover) << r[fi]) {
+	    if ( (et[curr] + layover) <= r[fi]) {
 		// taking the flight
                 int next_airport = d[fi];
 		int next_arrival = s[fi]; 
