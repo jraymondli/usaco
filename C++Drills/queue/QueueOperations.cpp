@@ -4,6 +4,11 @@
 
 using namespace std;
 
+void empty_q(queue<int> &q)
+{
+    while(!q.empty() ) q.pop();
+}
+
 int main()
 {
     queue<int> q;
@@ -14,17 +19,26 @@ int main()
 
     cout << " queue front:" << q.front() << endl;
 
+    // code in comment below does not compile
+    // cout << "pop return code: " << q.pop() << endl;
+
     q.pop();
-
-
     cout << " queue front:" << q.front() << endl;
 
     q.pop();
 
     cout << " queue front:" << q.front() << endl;
 
-    q.pop();
 
+    q.push(4);
+    q.push(5);
+    q.push(6);
+
+    cout << "queue size:" << q.size() << endl;
+
+    empty_q(q);
+
+    cout << "queue size:" << q.size() << endl;
 }
 
 
