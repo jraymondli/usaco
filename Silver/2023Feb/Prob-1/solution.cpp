@@ -20,19 +20,25 @@ bool check(int w){
     //1 <= y <= Y
     //x + y = X + Y - w
     //x = X + Y - y - w
-    long long lx = max(1, X - w), hx = min(X + Y - w - 1, X);
+    long lx = max(1, X - w), hx = min(X + Y - w - 1, X);
     for (int i = 0; i < N; i++){
         long a = aa[i]; long b = ba[i]; long long c = ca[i];
-        long long d = X + Y - w;
+        long d = X + Y - w;
         //a * x + b * y <= c
         //x + y = d = (X + Y - w)
         //-b * x - b * y <= -b * d
         //(a-b) * x <= c - b * d
-        if (b - a > 0)
-            lx = max(lx, (-c + b * d + (b - a - 1)) / (b - a));
-        else if (a - b > 0)
-            hx = min(hx, (c - b * d) / (a - b));
-        else if (a * d > c) return false;
+        if (b - a > 0) {
+	    long tmp = (-c + b * d + (b - a - 1)) / (b - a);
+            lx = max(lx, tmp);
+        } else if (a - b > 0) {
+	    long tmp = (c - b * d) / (a - b);
+            hx = min(hx, tmp);
+        } else {
+	    if (a * d > c) {
+		return false;
+	    }
+	}
     }
     return (lx <= hx);
     
