@@ -43,14 +43,14 @@ void printGraze()
 }
 
 bool reachable(struct Graze g1, struct Graze g2) {
-     int dist = abs(g1.x - g2.x) + abs(g1.y - g2.y);
-     return (dist <= abs(g1.t - g2.t));
+     int dist = (g1.x - g2.x)*(g1.x - g2.x) + (g1.y - g2.y) * (g1.y - g2.y);
+     return dist <= (g1.t - g2.t) * (g1.t - g2.t);
     
 }
 
 bool reachable(struct Graze g, struct Alibi a) {
-    int dist = abs(g.x - a.x) + abs(g.y - a.y);
-    return (dist <= abs(g.t - a.t));
+    int dist = (g.x - a.x) * (g.x - a.x) + (g.y - a.y) * (g.y - a.y);
+    return dist <= (g.t - a.t) * (g.t - a.t);
 }
 
 int findPos(int t) {
@@ -105,8 +105,12 @@ int main()
             continue;
         }
 	int pos = findPos(a[j].t);
-        if (g[pos].t == a[j].t) 
+        if (g[pos].t == a[j].t) { 
+            if (! reachable(g[pos], a[j])) {
+                count ++;
+            }
 	    continue;
+        }
  	if ( ! reachable(g[pos-1], a[j]) || ! reachable(g[pos], a[j])) {
 	    count ++;
 	}
