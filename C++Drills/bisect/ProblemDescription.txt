@@ -1,0 +1,35 @@
+
+
+1) Pythong bisect. 
+
+   Python supports a biset library. It provides support for maintaining a list in sorted order without having to sort the list after each insertion. 
+
+   Please first play with it and learn all the basic functions:
+   * bisect_left
+   * bisect_right
+   * bisect
+   * insort_left
+   * insort_right
+   * insort
+
+   Please document your test pythong script, commit it, and submit to git hub.
+
+2) Implement biset_right in C++ for integers. i.e.
+
+   int biset_right(int * ar, int n);
+
+   returns the index of n, idx, in ar which make ar[idx] > n.
+   Assuming the size of ar is len, if n > ar[len -1], the function return len.
+
+   Example call:
+   
+   int ar[100];
+   for (int i = 0; i < 100; i++) {
+       ar [i] = i * 2;
+   }
+   cout << bisect_right(ar, 37) << endl;
+
+ 
+
+   
+
