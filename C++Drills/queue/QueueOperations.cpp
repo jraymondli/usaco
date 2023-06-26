@@ -22,15 +22,15 @@ int main()
     // code in comment below does not compile
     // cout << "pop return code: " << q.pop() << endl;
 
-    q.pop();
+    cout << "pop 1 item" << endl; q.pop();
     cout << " queue front:" << q.front() << endl;
 
-    q.pop();
-
+    cout << "pop 1 item" << endl; q.pop();
     cout << " queue front:" << q.front() << endl;
 
 
     q.push(4);
+
     q.push(5);
     q.push(6);
 
