@@ -1,13 +1,13 @@
 #include <iostream>
 #include <vector>
  
-const int MAXN = 200005;
+const int MAXN = 100005;
  
 int N;
 std::vector<int> adj[MAXN];
 int at[MAXN];
 int p[MAXN];
-int par[MAXN];
+int par[MAXN]; // parent
  
 void input () {
 	std::cin >> N;
@@ -20,7 +20,8 @@ void input () {
 		adj[b].push_back(a);
 	}
 }
- 
+
+// figure out the parent 
 void dfs (int v) {
 	for (auto &u : adj[v]) {
 		if (u != par[v]) {
@@ -29,9 +30,10 @@ void dfs (int v) {
 		}
 	}
 }
- 
+
+// can't have more than the leafs 
 void proc () {
-	int L = 0;
+	int L = 0;    // leaf
 	for (int i = 2; i <= N; i++) {
 		L += (int(adj[i].size()) == 1);
 	}
