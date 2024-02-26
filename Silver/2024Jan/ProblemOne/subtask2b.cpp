@@ -45,7 +45,7 @@ void solve()
     for (int i=1; i<=N; i++) {
         for (int j=i+1; j<B[i]; j++) {
 	    if (B[j] && (B[j] != B[i])) { cout << -1 << endl; return; }
-	    B[j] = B[i];
+	    // B[j] = B[i];
 	}
     }
     {

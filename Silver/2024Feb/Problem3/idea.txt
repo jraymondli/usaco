@@ -1,0 +1,15 @@
+
+
+1) find the max of odd, and max of even for each of the steps
+
+   if all odd, max of even is - min(odd)
+
+   if all even, max of odd is - min(even)
+
+2) find the odd nmber from first to last one by one
+
+3) for each one do a binary search with everything before it fixed
+
+
+
+
